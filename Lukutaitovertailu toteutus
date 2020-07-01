@@ -1,0 +1,59 @@
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Lukutaitovertailu {
+    
+    
+    
+    
+    
+    public static void main(String[] args) {
+            
+
+
+    List<Maa> maat = new ArrayList<>();
+        try {
+            Files.lines(Paths.get("lukutaito.csv"))
+               .map(rivi -> rivi.split(","))
+               .filter(palat -> palat.length >= 6)
+               .map(palat -> new Maa(palat[3].trim(), Integer.valueOf(palat[4].trim()), palat[2].trim(), Integer.valueOf(palat[3].trim())))
+               .forEach(maa -> maat.add(maa));        
+                    
+                    
+        } catch (Exception e) {
+            System.out.println("Virhe: " + e.getMessage());
+    }
+        
+        maat.stream().sorted((h1, h2) -> {
+        return h1.getLukutaito() - h2.getLukutaito();
+        }).forEach(h -> System.out.println(h.toString()));
+        
+    }
+    
+    
+}
+    
+    //public static List<Maa> lueTiedosto() {
+    //    List<Maa> maat = new ArrayList<>();
+    //    try {
+    //        Files.lines(Paths.get("lukutaito.csv"))
+    //           .map(rivi -> rivi.split(","))
+    //           .filter(palat -> palat.length >= 7)
+    //           .map(palat -> new Maa(palat[3].trim(), Integer.valueOf(palat[4].trim()), palat[2].trim(), Integer.valueOf(palat[3].trim())))
+    //           .forEach(maa -> maat.add(maa));        
+                    
+                    
+//} catch (Exception e) {
+//    System.out.println("Virhe: " + e.getMessage());
+//}
+//        return maat;
+//    }
+    
+    
+    
+    
+    
